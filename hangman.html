@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman Test</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+	// App state
+	var userGuess = "";
+	var selectionOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	var remainingGuessesLeft = 10;
+	var usedLetters = "";
+
+
+	// The application chooses a secret word
+	var secretWord = "secret";
+
+	// The application shows the empty spaces for each letter of the secret word
+
+	// The application prompts the user to select a letter from the alphabet
+	userGuess = prompt("Pick a letter from the alphabet");
+		// Log the letter the user selects
+		console.log(userGuess);
+
+	// The application indicates whether the guessed letter is part of the secret word
+
+ 		//    	If the user selection is a part of the secret word, the letter is revealed in empty space(s)
+ 		//    	If the user selection is not a part of the secret word
+
+ 	// The incorrect guessed letter is placed in an incorrect guess section (visible)
+	 	//      The application creates the next part of the hangman body
+		// The application prompts the user to select another (non-selected) letter from the alphabet  
+
+ 	//  If the user guesses an already selected letter from the game, a prompt to make a different guess will be displayed
+
+	// If user guesses all lettters in the secret word
+ 		//  A prompt indicating the user WINS is displayed
+ 		//  Prompt to start a new game is displayed
+	// If the hangman body is complete (#parts of body?) the user loses 
+ 		//  A prompt indicating the end of game is displayed
+ 		//  Answer is displayed
+ 		//  Prompt to start a new game is displayed		
+
+	</script>
+</body>
+</html>
