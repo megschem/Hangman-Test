@@ -3,6 +3,7 @@
 # Hangman Requirements
 
 ## Assignment
+
 * Build a game of hangman on a single web page
 * Tools available are HTML, CSS and JavaScript
 * Maintain proper indention and whitespace throughout code
@@ -13,6 +14,7 @@
 * Add Angeleah and Randy to the project
 
 ## Problem Description
+
 * The application chooses a secret word
 * The application shows the empty spaces for each letter of the secret word
 * The application prompts the user to select a letter from the alphabet
@@ -33,10 +35,12 @@
    * Prompt to start a new game is displayed
    
 ## Recommendations
+
 * Use previous code to give you ideas on how to write new code (r,p,s)
 * Use Google and Stackoverflow to answer questions about js techniques
 * Ask your lead/manager when you get stuck on things
 * Try to complete as much of the game in the console before worrying about the user interface
 * Try to use hard-coded values rather than using dynamic, user-generated values
 * Write pseudo-code based on your problem description, which later on will become some of the Comments in your code
-* Don't initially try to be the most efficient code
+* Don't initially try to write the most efficient code
+* Create branches for different pieces of your code and ask for reviews from @angeleah or @wrburgess, where necessary
