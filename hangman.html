@@ -8,54 +8,52 @@
 	<script type="text/javascript">
 	// App state
 
-	var userGuess = "";
 	var secretWord = "secret";
-	var incorrectGuessesRemaining = 10;
-	var usedLetters = [];
+	var userGuess = "";
+	var incorrectGuesses = [];
+	var incorrectGuessLimit = 10;
 
-	// The application chooses a secret word
+	// TODO: The application chooses a secret word
 
-
-	// The app shows the empty spaces for each letter of the secret word
-	// Length of secret word is needed for the counter? Include 0? .charAt?
-	// var wordLength = secretWord.lenth;
+	// TODO: The app shows the empty spaces for each letter of the secret word
 
 	document.onkeyup = function(event) {
 	// Assign the pressed key to userGuess
 		userGuess = event.key;
 
-		// The app prompts the user to select a letter from the alphabet
-		usedLetters.push(userGuess);
-		// Log the letter the user selects
-		console.log("The user guess is: " + userGuess);
-		// update letters used section
-		console.log("All user guesses thus far: " + usedLetters);
+	   	// The app indicates whether the guessed letter is part of the secret word
+		if 	(userGuess === "s" || userGuess === "e" || userGuess === "c" || userGuess === "r" || userGuess === "t") {
+			// Log the letter the user selects
+			console.log("The user guess is: " + userGuess);
+			console.log("You guessed a correct letter!");
+				// If user guesses all lettters in the secret word, 
+				if (userGuess === secretWord) {
+				// a message indicating the user WINS is displayed
+				console.log("YOU WIN!" + "The secret word is: " + secretWord);
+	 		// The application prompts the user to select another (non-selected) letter from the alphabet  
+			}	else {
+				console.log("Guess another letter!");
+			}
+		} 	else {
+			console.log("Incorrect guess!");
+			// log incorrect letters used
+			incorrectGuesses.push(userGuess);
+			console.log("All incorrect user guesses thus far: " + incorrectGuesses);
+					//  Calculate Incorrect Guess limit reached
+				if 	(incorrectGuesses.length > 10) {
+			 		console.log("Game Over!" + " The secrect word was: " + secretWord);
+			 		// Prompt user to make another guess
+			 	}	else {
+					console.log("Guess another letter!");
+			 	}
+			}
+	 	}
 
-		// The app indicates whether the guessed letter is part of the secret word
 
-	   	// If the user selection is a part of the secret word; the letter is revealed in empty space(s)
-
- 		if (userGuess === "s" || userGuess === "e" || userGuess === "c" || userGuess === "r" || userGuess === "t") {
- 			console.log("Correct!");
- 		} else {
- 			console.log("Incorrect guess!");
- 		}
-
-
-	 	// The incorrect guessed letter is placed in an incorrect guess section (visible)
-		 	//      The app creates the next part of the hangman body
-			// The application prompts the user to select another (non-selected) letter from the alphabet  
-
-	 	//  If the user guesses an already selected letter from the game, a prompt to make a different guess will be displayed
-
-		// If user guesses all lettters in the secret word
-	 		//  A prompt indicating the user WINS is displayed
-	 		//  Prompt to start a new game is displayed
-		// If the hangman body is complete (#parts of body?) the user loses 
-	 		//  A prompt indicating the end of game is displayed
-	 		//  Answer is displayed
-	 		//  Prompt to start a new game is displayed		
-	 }
+ 		// TODO: The app creates the next part of the hangman body
+ 		// TODO: If the user selection is a part of the secret word; the letter is revealed in empty space(s)
+	 	// TODO: Prompt to start a new game is displayed		
+	 	// TODO: ELSE IF?  - If the user guesses an already selected letter from the game, a prompt to make a different guess will be displayed
 	</script>
 </body>
 </html>
