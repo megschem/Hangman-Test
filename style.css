@@ -1,0 +1,14 @@
+
+
+ul li {
+	border-bottom: 1px solid black; 
+	display: inline-block; 
+/*	visibility: hidden;*/
+}
+
+li {
+	margin-right: 10px;
+}
+
+
+

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scratch Pad</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+	// App state
+	var userGuess = "";
+	var secretWord = "secret";
+	var incorrectGuesses = 0;
+	var incorrectGuessesRemaining = 10;
+	var usedLetters = [];
+
+var newItem = "NEW_ITEM_TO_ARRAY";
+var array = ["OLD_ITEM_1", "OLD_ITEM_2"];
+
+
+	document.onkeyup = function(event) {
+	// Assign the pressed key to userGuess
+		userGuess = event.key;
+
+		// The app prompts the user to select a letter from the alphabet
+		usedLetters.push(userGuess);
+		// Log the letter the user selects
+		console.log("The user guess is: " + userGuess);
+		// update letters used section
+		console.log("All user guesses thus far: " + usedLetters);
+
+		// The app indicates whether the guessed letter is part of the secret word
+
+	   	// If the user selection is a part of the secret word; the letter is revealed in empty space(s)
+
+ 		if (userGuess === "s" || userGuess === "e" || userGuess === "c" || userGuess === "r" || userGuess === "t") {
+ 			console.log("Correct!");
+
+
+
+usedLetters.indexOf(userGuess) === -1 ? usedLetters.push(userGuess) : console.log("This item already exists");
+
+console.log(array)
+
+</script>
+</body>
+</html>
+
