@@ -71,6 +71,12 @@
 		playAgainSpan.innerHTML = ("Play Again? <a href='/'>Click here</a>.");
 	};
 
+	// Function for displaying all guesses
+	var combineAndRenderAllGuesses = function(correctGuesses, incorrectGuesses) {
+		var allGuesses = correctGuesses.concat(incorrectGuesses).join(", ");
+		return allGuesses;
+	}
+
 	document.onkeyup = function(event) {
 		// Assign the pressed key to userGuess
 		userGuess = event.key;
@@ -125,10 +131,9 @@
 		} else {	
 			// CONTINUE GUESSING SCENARIO
 			// Indicate all letters guessed thus far in the game
-			var allGuesses = incorrectGuesses + correctGuesses;
 			var lettersGuessedSpan = document.querySelector(".letters-guessed");
 			// console.log("All letters guessed thus far: " + allGuesses);
-			lettersGuessedSpan.textContent = ("Letters Guessed Thus Far: " + incorrectGuesses + correctGuesses);
+			lettersGuessedSpan.textContent = ("Letters Guessed Thus Far: " + combineAndRenderAllGuesses(correctGuesses, incorrectGuesses));
 
 
 			// Continue Guessing... 
