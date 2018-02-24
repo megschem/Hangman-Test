@@ -9,28 +9,32 @@
 
 	<h1>Let's play Hangman!</h1>
 
-	<h2>Try to guess the word below (<em>press any letter</em>)</h2>
+	<h2 class="game-start">Would you like to play? Press (y)es.</h2>
+	<div class="game-board hide">
+		<h2>Try to guess the word below (<em>press any letter</em>)</h2>
 
-	<!-- The CORRECT GUESSES ARE ENTERED INTO BLANK SPACES -->
-	<div>
-		<ul>
-			<!-- INSERT BLANK SPACES HERE: <li class="index">&nbsp;&nbsp;&nbsp;</li> -->
-		</ul>	
-	</div>
+		<!-- The CORRECT GUESSES ARE ENTERED INTO BLANK SPACES -->
+		<div>
+			<ul>
+				<!-- INSERT BLANK SPACES HERE: <li class="index">&nbsp;&nbsp;&nbsp;</li> -->
+			</ul>	
+		</div>
 
-	<div>
-	<!-- The app creates the next part of the hangman body--> 
-		<img id="hangman-img">
-	</div>
+		<div>
+		<!-- The app creates the next part of the hangman body--> 
+			<img id="hangman-img">
+		</div>
 
-	<div>
-		<h3><span class="letters-guessed"></span></h3>
-		<h3><span class="user-message"></span></h3>
-		<h3><span class="play-again"></span></h3>
-	</div>
+		<div>
+			<h3><span class="letters-guessed"></span></h3>
+			<h3><span class="user-message"></span></h3>
+			<h3><span class="play-again"></span></h3>
+		</div>
+	</div>	
 
 	<script type="text/javascript">
 	// App state
+	var gameStarted = false;
 
 	var wordArray = ["nugget", "spindle", "pleasure", "prognosis", "breathe", "dangerous", "exactly", "swimmer", "elephant", "princess", "disgusting", "joyous", "excellent", "wonderous", "beautiful", "stupendous", "spatula", "xylophone", "zealous", "humdinger", "swizzle", "yellow", "pickles", "quixotic"];
 
@@ -61,6 +65,8 @@
 	var hangmanImg = document.getElementById("hangman-img");
 	var userMessageSpan = document.querySelector(".user-message");
 	var playAgainSpan = document.querySelector(".play-again");
+	var gameStart = document.querySelector(".game-start");
+	var gameBoard = document.querySelector(".game-board");
 	// console.log("Guess another letter!");
 
 	// Set up User Messages
@@ -78,69 +84,82 @@
 	}
 
 	document.onkeyup = function(event) {
-		// Assign the pressed key to userGuess
-		userGuess = event.key;
+		if (gameStarted) {
 
-	   	// The app indicates whether the guessed letter is part of the secret word or not
-		if (secretWordArray.indexOf(userGuess) !== -1) {
-			// Indicate if the correct letter was selected
-			console.log(userGuess + " is a correct guess!");
+			// Assign the pressed key to userGuess
+			userGuess = event.key;
 
-			// log correct letters used
-			correctGuesses.push(userGuess);
+		   	// The app indicates whether the guessed letter is part of the secret word or not
+			if (secretWordArray.indexOf(userGuess) !== -1) {
+				// Indicate if the correct letter was selected
+				console.log(userGuess + " is a correct guess!");
 
-			// Turn the secretWord into an array of individual characters
-			for (var counter = 0; counter < secretWord.length; counter++) {
-			    // console.log(secretWord.charAt(counter));
-			    if (userGuess === secretWordArray[counter]) {
-					var secretWordListItem = document.querySelector(".index"+counter);
-					secretWordListItem.textContent = userGuess;
-			    }
+				// log correct letters used
+				correctGuesses.push(userGuess);
 
-			// Removal of correct letters/elements from the secretWord Array
-		    	if (userGuess === secretWordsRemaining[counter]) {
-					secretWordsRemaining.splice(counter, 1);
-		    		counter = 0;
-		    	}
+				// Turn the secretWord into an array of individual characters
+				for (var counter = 0; counter < secretWord.length; counter++) {
+				    // console.log(secretWord.charAt(counter));
+				    if (userGuess === secretWordArray[counter]) {
+						var secretWordListItem = document.querySelector(".index"+counter);
+						secretWordListItem.textContent = userGuess;
+				    }
+
+				// Removal of correct letters/elements from the secretWord Array
+			    	if (userGuess === secretWordsRemaining[counter]) {
+						secretWordsRemaining.splice(counter, 1);
+			    		counter = 0;
+			    	}
+				}
+				
+			} else if (event.key !== "Meta") {  
+				// Indicate if an incorrect letter was selected
+				// console.log(userGuess + " is incorrect!");
+
+				// log incorrect letters used
+				incorrectGuesses.push(userGuess);
+
+				hangmanImg.setAttribute("src", "images/Hangman-" + incorrectGuesses.length + ".png");
+			}	
+
+			// // LOSE Scenario
+			if 	(incorrectGuesses.length >= 10) {
+		 		// console.log("Game Over!" + " The secret word was: " + secretWord);
+		 		userMessageSpan.textContent = ("Game Over!" + " The secret word was: " + secretWord);
+
+		 		renderPlayAgainMessage();
+
+			} else if (secretWordsRemaining.length < 1) {
+				// WIN Scenario
+				// a message indicating the user WINS is displayed
+				// console.log("YOU WIN!" + "The secret word was: " + secretWord);
+				userMessageSpan.textContent = ("YOU WIN! " + "The secret word was: " + secretWord);
+				renderPlayAgainMessage(); 
+
+			} else {	
+				// CONTINUE GUESSING SCENARIO
+				// Indicate all letters guessed thus far in the game
+				var lettersGuessedSpan = document.querySelector(".letters-guessed");
+				// console.log("All letters guessed thus far: " + allGuesses);
+				lettersGuessedSpan.textContent = ("Letters Guessed Thus Far: " + combineAndRenderAllGuesses(correctGuesses, incorrectGuesses));
+
+
+				// Continue Guessing... 
+				// console.log("Guess another letter!");
+				userMessageSpan.textContent = ("Guess another letter!");
+			}	
+		} else {
+			if (event.key === "y") {
+				gameStarted = true;
+				
+				var gameStartClasses = gameStart.classList;
+				gameStartClasses.add("hide");
+
+				var gameBoardClasses = gameBoard.classList;
+				gameBoardClasses.remove("hide");
 			}
-			
-		} else {  
-			// Indicate if an incorrect letter was selected
-			// console.log(userGuess + " is incorrect!");
-
-			// log incorrect letters used
-			incorrectGuesses.push(userGuess);
-
-			hangmanImg.setAttribute("src", "images/Hangman-" + incorrectGuesses.length + ".png");
-		}	
-
-		// // LOSE Scenario
-		if 	(incorrectGuesses.length >= 10) {
-	 		// console.log("Game Over!" + " The secret word was: " + secretWord);
-	 		userMessageSpan.textContent = ("Game Over!" + " The secret word was: " + secretWord);
-
-	 		renderPlayAgainMessage();
-
-		} else if (secretWordsRemaining.length < 1) {
-			// WIN Scenario
-			// a message indicating the user WINS is displayed
-			// console.log("YOU WIN!" + "The secret word was: " + secretWord);
-			userMessageSpan.textContent = ("YOU WIN! " + "The secret word was: " + secretWord);
-			renderPlayAgainMessage(); 
-
-		} else {	
-			// CONTINUE GUESSING SCENARIO
-			// Indicate all letters guessed thus far in the game
-			var lettersGuessedSpan = document.querySelector(".letters-guessed");
-			// console.log("All letters guessed thus far: " + allGuesses);
-			lettersGuessedSpan.textContent = ("Letters Guessed Thus Far: " + combineAndRenderAllGuesses(correctGuesses, incorrectGuesses));
-
-
-			// Continue Guessing... 
-			// console.log("Guess another letter!");
-			userMessageSpan.textContent = ("Guess another letter!");
-		}	
-	}
+		}
+	} 
 
 	 	// TODO: Prompt to start a new game is displayed		
 	 	// TODO: ELSE IF?  - If the user guesses an already selected letter from the game, a prompt to make a different guess will be displayed
